@@ -18,7 +18,7 @@ connection.connect(function (err) {
     console.log("connected as id " + connection.threadId);
 
 });
-
+//
 function readProduct(delay) {
     connection.query('SELECT item_id, product_name, price FROM products', function (error, results, fields) {
         console.log("----------Inventory--------")
@@ -36,7 +36,7 @@ readProduct(function () {
             message: "What is the ID of the item you would like to buy??",
             name: "purchase"
         }
-    ]).then(function (what) {
+    ]).then(function (what) {   
 
         connection.query('SELECT item_id, product_name FROM products WHERE ?',
             {
