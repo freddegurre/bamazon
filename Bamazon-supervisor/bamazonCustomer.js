@@ -23,7 +23,7 @@ function readProduct(delay) {
     connection.query('SELECT item_id, product_name, price FROM products', function (error, results, fields) {
         console.log("----------Inventory--------")
         for (var i = 0; i < results.length; i++) {
-            console.log("Product ID: " + results[i].item_id + " | Product " + results[i].product_name + " | Price " + results[i].price);
+            console.log("Product ID: " + results[i].item_id + " | Product: " + results[i].product_name + " | Price: " + results[i].price);
         }
         console.log("----------Inventory--------")
         delay();
@@ -63,6 +63,12 @@ readProduct(function () {
                                     [{ stock_quantity: newStock }, { item_id: what.purchase }]
                                 )
                                 var price = input.quantity * results[0].price;
+                                var totSales = price + results[0].product_sales
+                                connection.query(
+                                    "UPDATE products SET ? WHERE ?",
+                                    [{ product_sales: totSales }, { item_id: what.purchase }]
+                                )
+                
                                 console.log("Thanks for buying " + results[0].product_name + "  your total price is " + price);
                                
                             }

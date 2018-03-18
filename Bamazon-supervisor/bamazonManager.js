@@ -20,36 +20,37 @@ connection.connect(function (err) {
 });
 
 function start () {
-inquirer.prompt([
-    {
-      type: "list", 
-      message: "What would you like to do?",
-      choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory","Add New Product", "Exit app"], 
-      name: "command"  
-    }
-]).then(function (command){
-    switch (command.command) {
-        case "View Products for Sale":
-            viewProducts(); 
-            break;
+    inquirer.prompt([
+        {
+        type: "list", 
+        message: "What would you like to do?",
+        choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory","Add New Product", "Exit app"], 
+        name: "command"  
+        }
+    ]).then(function (command){
+        switch (command.command) {
+            case "View Products for Sale":
+                viewProducts(); 
+                
+                break;
 
-        case "View Low Inventory":
-            inventory(); 
-            break;
+            case "View Low Inventory":
+                inventory(); 
+                break;
 
-        case "Add to Inventory":
-            addInventory(); 
-            break;
+            case "Add to Inventory":
+                addInventory(); 
+                break;
 
-        case "Add New Product":
-            addProduct(); 
-            break;
-        
-        case "Exit app":
-            exitApp(); 
-            break;
-    }
-}); 
+            case "Add New Product":
+                addProduct(); 
+                break;
+            
+            case "Exit app":
+                exitApp(); 
+                break;
+        }
+    }); 
 }
 function viewProducts () {
     var query = "SELECT item_id, product_name, price, stock_quantity FROM products"
