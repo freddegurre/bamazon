@@ -39,7 +39,7 @@ function start () {
                 break;
 
             case "Add to Inventory":
-                addInventory(); 
+                addInventory(addInventoryTwo); 
                 break;
 
             case "Add New Product":
@@ -62,41 +62,59 @@ function viewProducts () {
     
 }
 function inventory () {
-    var query = "SELECT product_name, stock_quantity FROM products WHERE stock_quantity < 30"
+    var query = "SELECT product_name, stock_quantity FROM products WHERE stock_quantity < 10"
     connection.query(query, function(error, response, fields){
         for (var i = 0; i < response.length; i++){
             console.log(response[i].product_name + " || Stock quantity: " + response[i].stock_quantity);
         }
     })
 }
-function addInventory () {
+var prod =[];
+function addInventory (x) {
    var query = "SELECT item_id, product_name, stock_quantity FROM products"
-   var id =[]
    connection.query(query, function (error, response, fields){
        console.log("------------CURRENT INVENTORY-------------");
        for (var i = 0; i < response.length; i++) {
-        id.push(response[i].item_id);
-        console.log("ID: " + response[i].item_id + " || " + response[i].product_name + " Inventory: " + response[i].stock_quantity);
-       }
-   })
+            prod.push(JSON.stringify(response[i].item_id));
+            console.log("ID: " + response[i].item_id + " || " + response[i].product_name + " Inventory: " + response[i].stock_quantity);
+        }
+      x(); 
+   }) 
+   
+}
+function addInventoryTwo() {
    inquirer.prompt([
    {
-       type: "list",
-       message: "What ID would you like to update the inventory for?",
-       choices: id,
-       name: "prodID"  
+        type: "list",
+        message: "What ID would you like to update the inventory for?",
+        choices: prod,
+        name: "prodID"  
+   }, 
+   {
+        type:"input",
+        message: "How much would you like to add?",
+        name: "newInv"
    }
    ]).then(function(input){
-    console.log(input)
-   });
-   
-    //var query = "UPDATE products SET stock_quantity=100 WHERE item_id=3;"
-   // connection.query(
-        //"UPDATE fav_music SET ? WHERE ?", 
-           //[{ganre: "calm"}, {id: 6}] 
-        
-    // )
+        connection.query('SELECT * FROM products WHERE ?',
+        {
+            item_id: input.prodID
+        },
+        function (error, results, fields){
+            
+            var updInv = Number(results[0].stock_quantity) + Number(input.newInv); 
+            var query = "UPDATE products SET ? WHERE ?"
+            connection.query(query, [{ stock_quantity: updInv}, { item_id: input.prodID }])
+            console.log("-----------------------------------")
+            console.log(input.newInv + " : inventory added to: " + results[0].product_name)
+            console.log("-----------------------------------")
+            start ()
+        })
+    
+    })
 }
+     
+        
 function addProduct() {
 
     inquirer.prompt([

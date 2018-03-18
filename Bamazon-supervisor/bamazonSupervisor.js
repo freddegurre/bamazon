@@ -30,13 +30,20 @@ function start () {
     ]).then(function (command){
         switch (command.command) {
             case "View Products sales by Department":
-               
-                
+                salesByDpt()
                 break;
     
             case "Create new department":
-                
+                newDpt()
                 break;
         }
     }); 
+}
+
+function salesByDpt() {
+
+}
+
+function newDpt() {
+
 }
