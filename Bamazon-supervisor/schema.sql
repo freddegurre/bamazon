@@ -26,3 +26,10 @@ over_head_costs INTEGER
 
 INSERT INTO departments (department_name, over_head_costs)
 VALUES ("Vegetables", 200) ,("Fruit", 300),("Drinks", 150),("Hygen", 300);
+
+
+SELECT departments.department_id, departments.department_name, departments.over_head_costs, SUM(products.product_sales) AS Product_sales FROM products
+LEFT JOIN departments ON products.department_name = departments.department_name
+GROUP BY departments.department_id, departments.department_name, departments.over_head_costs
+
+--https://www.w3schools.com/sql/sql_groupby.asp

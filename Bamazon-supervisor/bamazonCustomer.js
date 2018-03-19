@@ -110,6 +110,7 @@ function letsShop() {
                             if (input.quantity > results[0].stock_quantity) {
                                 console.log("We only have " + results[0].stock_quantity + " left");
                             }
+                            
                             connection.end();
                         })
                 })

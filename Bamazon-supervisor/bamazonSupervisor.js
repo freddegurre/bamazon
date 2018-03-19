@@ -45,5 +45,28 @@ function salesByDpt() {
 }
 
 function newDpt() {
+    inquirer.prompt([
+        {
+            type: "input", 
+            message: "Whats the name of the Department you would like to add?", 
+            name: "deptName"
+        }, 
+        {
+            type: "input", 
+            message: "Whats the overhaead cost for this department?", 
+            name: "overHead"
+        },
+    ]).then(function(newDept){
+        var query = "INSERT INTO departments SET ?"
+        connection.query(query, 
+        {
+            department_name: newDept.deptName,
+            over_head_costs: newDept.overHead
+        })
+        console.log("-----------------------------------")
+        console.log(newDept.deptName + "  Has been added to your DB")
+        console.log("-----------------------------------")
+        connection.end()
+    })
 
 }
