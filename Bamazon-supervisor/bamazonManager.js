@@ -56,8 +56,9 @@ function viewProducts () {
     var query = "SELECT item_id, product_name, price, stock_quantity FROM products"
     connection.query(query, function(error, response, fields){
         for (var i = 0; i < response.length; i++){
-            console.log(response[i].item_id + "  "+ response[i].product_name, + "  " + response[i].price +"  "+  response[i].stock_quantity)
+            console.log("ID: " + response[i].item_id + "  " + response[i].product_name + " |Price: " + response[i].price + " |Inventory:  " +  response[i].stock_quantity)
         }
+        start ()
     })
     
 }
@@ -67,10 +68,11 @@ function inventory () {
         for (var i = 0; i < response.length; i++){
             console.log(response[i].product_name + " || Stock quantity: " + response[i].stock_quantity);
         }
+        start ()
     })
 }
 var prod =[];
-function addInventory (x) {
+function addInventory (cb) {
    var query = "SELECT item_id, product_name, stock_quantity FROM products"
    connection.query(query, function (error, response, fields){
        console.log("------------CURRENT INVENTORY-------------");
@@ -78,7 +80,7 @@ function addInventory (x) {
             prod.push(JSON.stringify(response[i].item_id));
             console.log("ID: " + response[i].item_id + " || " + response[i].product_name + " Inventory: " + response[i].stock_quantity);
         }
-      x(); 
+      cb(); 
    }) 
    
 }
@@ -132,6 +134,11 @@ function addProduct() {
             type:"input", 
             message: "how much invetory should be added for this product?",
             name: "inventory"
+        },
+        {
+            type:"input", 
+            message: "what department does the product belong to?",
+            name: "department"
         }
     ]).then(function(newProd){
         var query = "INSERT INTO products SET ?"
@@ -139,7 +146,8 @@ function addProduct() {
             {
                 product_name: newProd.product,
                 price: newProd.price,
-                stock_quantity: newProd.inventory
+                stock_quantity: newProd.inventory,
+                department_name: newProd.department
                 
             }
         )

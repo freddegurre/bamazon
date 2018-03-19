@@ -24,23 +24,32 @@ function start () {
         {
           type: "list", 
           message: "What would you like to do?",
-          choices: ["View Products sales by Department", "Create new department"], 
+          choices: ["View Products sales by Department", "Create new department", "Exit app"], 
           name: "command"  
         }
     ]).then(function (command){
         switch (command.command) {
             case "View Products sales by Department":
-                salesByDpt()
+                salesByDpt();
                 break;
     
             case "Create new department":
-                newDpt()
+                newDpt();
+                break;
+            case "Exit app":
+                exitApp();
                 break;
         }
     }); 
 }
 
 function salesByDpt() {
+    var query = "SELECT departments.department_id, departments.department_name, departments.over_head_costs, SUM(products.product_sales) AS Product_sales, SUM(products.product_sales) -departments.over_head_costs AS total_profit FROM products LEFT JOIN departments ON products.department_name = departments.department_name GROUP BY departments.department_id, departments.department_name, departments.over_head_costs"
+    connection.query(query,function (error, results, fields){
+        for (var i = 0; i < results.length; i++) {
+            console.log(results[i].department_id, results[i].department_name, results[i].over_head_costs, results[i].Product_sales,results[i].total_profit ); 
+        } 
+    })
 
 }
 
@@ -69,4 +78,8 @@ function newDpt() {
         connection.end()
     })
 
+}
+
+function exitApp () {
+    connection.end()
 }
