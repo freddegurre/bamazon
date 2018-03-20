@@ -1,5 +1,5 @@
 # bamazon
-###### This is a node.js application simulating a small supermarket, Using a MySql DB. 
+###### This is a node.js application simulating a small supermarket, Using MySql DB. 
 
 The application has 3 user roles. 
 * Customer
@@ -21,7 +21,7 @@ Here is a [video demo!](https://drive.google.com/file/d/1i_CCz9O_iah5V8ZjSEA-X8x
 The database is a simple MySql with two tables. **Products** **departments**
 
 ### Code
-Customer, Manager and Supervisor are separated files. All files start with a switch case that askse the user questions, depending on the answer different functions are called. **Example Below**
+All done in node.js. Customer, Manager and Supervisor are separated files. All files start with a switch case that askse the user questions, depending on the answer different functions are called. **Example Below**
 
 ```javascript
 //Start application
@@ -59,6 +59,16 @@ function start () {
     }); 
 }
 ```
+### dependencies
+                {
+                    "inquirer": "^5.1.0",
+                    "mysql": "^2.15.0"
+                }
+
+
+###### Fredrik Gustafson
+
+:poop:
 
 
 
