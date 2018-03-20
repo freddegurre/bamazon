@@ -11,7 +11,7 @@ CREATE TABLE products (
 );
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Ketchup", "Fruit", 5, 20), ("Milk","Drinks", 3.4,  11), ("coffee","Drinks", 6.9, 46), ("Apples","Fruit", 0.99, 358), ("Pinapple","Fruit", 11.67, 9), ("Beer","Drinks", 4.5, 41), ("Wine","Drinks", 17.8, 21), ("Tomatoes","Vegetables", 1.3, 67), ("Lemon","Fruit", 11.4, 34), ("Pepper","Vegetables", 6.2, 11);
+VALUES ("Ketchup", "Fruit", 5, 20), ("Milk","Drinks", 3.4,  11), ("coffee","Drinks", 6.9, 46), ("Apples","Fruit", 0.99, 20), ("Pinapple","Fruit", 11.67, 5), ("Beer","Drinks", 4.5, 41), ("Wine","Drinks", 17.8, 21), ("Tomatoes","Vegetables", 1.3, 20), ("Lemon","Fruit", 11.4, 34), ("Pepper","Vegetables", 6.2, 11);
 
 
 

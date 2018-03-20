@@ -18,7 +18,7 @@ connection.connect(function (err) {
     //console.log("connected as id " + connection.threadId);
     start();
 });
-
+//Start application
 function start () {
     inquirer.prompt([
         {
@@ -52,6 +52,7 @@ function start () {
         }
     }); 
 }
+// View all products in all departments
 function viewProducts () {
     var query = "SELECT item_id, product_name, price, stock_quantity FROM products"
     connection.query(query, function(error, response, fields){
@@ -62,15 +63,18 @@ function viewProducts () {
     })
     
 }
+//Check inventory of all products where its less than 10,
 function inventory () {
     var query = "SELECT product_name, stock_quantity FROM products WHERE stock_quantity < 10"
     connection.query(query, function(error, response, fields){
         for (var i = 0; i < response.length; i++){
-            console.log(response[i].product_name + " || Stock quantity: " + response[i].stock_quantity);
+            console.log(response[i].product_name + " || Inventory: " + response[i].stock_quantity);
         }
         start ()
     })
 }
+
+//Add inventory for exsisting product
 var prod =[];
 function addInventory (cb) {
    var query = "SELECT item_id, product_name, stock_quantity FROM products"
@@ -84,6 +88,7 @@ function addInventory (cb) {
    }) 
    
 }
+//Add inventory for exsisting product
 function addInventoryTwo() {
    inquirer.prompt([
    {
@@ -116,7 +121,7 @@ function addInventoryTwo() {
     })
 }
      
-        
+//Creata new product in DB        
 function addProduct() {
 
     inquirer.prompt([
@@ -159,6 +164,7 @@ function addProduct() {
     
    
 }
+//Exit app
 function exitApp () {
     connection.end()
 }

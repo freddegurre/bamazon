@@ -15,10 +15,10 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    //console.log("connected as id " + connection.threadId);
     start()
 });
-
+//Start application
 function start() {
     inquirer.prompt([
         {
@@ -48,14 +48,14 @@ function start() {
 }
 
 //Load and display all products from DB 
-function readProduct(x) {
+function readProduct(cb) {
     connection.query('SELECT item_id, product_name, price FROM products', function (error, results, fields) {
         console.log("----------Inventory--------")
         for (var i = 0; i < results.length; i++) {
             console.log("Product ID: " + results[i].item_id + " | Product: " + results[i].product_name + " | Price: " + results[i].price);
         }
         console.log("----------Inventory--------")
-        x();
+        cb();
     });
 }
 //Logic for shooping al the shopping is done on ID of product
